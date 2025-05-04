@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %} Detail of {{detail.city}} {% endblock %}
+
+{% block body %}
+
+{% block search %}
+{% endblock %}
+
+
+
+<div class ='col-sm-6 col-sm-offset-3'>
+  <div class="list-group-item active">
+    <strong><span class="glyphicon glyphicon-film"></span> House Detail</strong>
+  </div>
+  {% if detail.image %}
+  <img src='{{ detail.image.url }}' class="img-responsive"/>
+  {% endif %}
+  <a href="" class="list-group-item"><strong>City: </strong>{{detail.city}}</a>
+  <a href="" class="list-group-item"><strong>Owener of House   : </strong>{{detail.house_owner}}</a>
+  <a href="" class="list-group-item"><strong>House number   : </strong>{{detail.house_number}}</a>
+  <a href="" class="list-group-item"><strong>Price   : </strong>{{detail.cost_per_day}}</a>
+  <a href="" class="list-group-item"><strong>Like   : </strong>{{detail.like}}</a>
+  <a href="" class="list-group-item"><strong>Other Info   : </strong>{{detail.content}}</a><br>
+  <div class="pull-right">
+    <a href="{% url 'newhouse' %}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-list"></span> Newly Added House</button></a>
+
+    {% for ob in house %}
+      {% if ob.cost_per_day <= '3000' %}
+      <a href="{% url 'order_create' %}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-ok"></span> Reserved</button></a>
+      {% endif %}
+    {% endfor %}
+
+    {% if ob.cost_per_day > '3000' %}
+    <a href="{% url 'order_create' %}" class="btn btn-success btn-sm" role="button">Book</a>
+    {% endif %}
+    <a href="#" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-map-marker"></span> Map </a>
+
+
+
+    
+<hr>
+
+
+ 
+
+
+  </div>
+
+</div>
+
+{% endblock %}

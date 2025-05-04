@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}  Newly Added House {% endblock %}
+
+
+{% block nav %}
+        <li><a href="{% url 'newhouse' %}"><span class="glyphicon glyphicon-align-justify"></span> Newly Added House</a></li>
+       
+
+        {% if request.user.username == 'Birhanu' or request.user.username == 'Beta' or request.user.username == 'Birex' or request.user.username == 'Tsion' or request.user.username == 'Zigale' or request.user.username == 'hana' or request.user.username == 'abel' or request.user.username == 'beti' %}
+        <li><a href="{% url 'house_create' %}"><span class="glyphicon glyphicon-plus"></span> post House</a></li>
+        {% endif %}
+
+        <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
+
+{% endblock %}
+{% block body %}
+
+
+
+
+<div>
+    {% for message in messages %}
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      
+
+      <script>
+        $(document).ready(function() {
+            $('#myMessage').modal('show');
+        });
+      </script>
+      
+    {% endfor %}
+</div>
+
+
+
+
+    
+<div class="container" style="margin-top: 15px;">
+<div class="row">
+        {% for ob in house %}
+
+      <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            {% if ob.image %}
+                <img src='{{ ob.image.url }}' class="img-responsive"/>
+            {% endif %}
+          <div class="caption">
+            <strong>{{ ob.city }}</strong>
+            <p> House Owner: {{ ob.house_owner }}<br>
+                House number: {{ ob.house_number }}<br>
+                Price: {{ ob.cost_per_day }} INR<br>
+            </p>
+              <div class="pull-right">
+            <p class="center">
+              <!-- addd -->
+
+              <a href="https://www.google.com/maps/place/11%C2%B051'12.4%22N+38%C2%B000'31.2%22E/@11.853434,38.0081095,155m/data=!3m2!1e3!4b1!4m6!3m5!1s0x0:0xd21af914858cf548!7e2!8m2!3d11.853434!4d38.0086583" target="_blank" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-map-marker"></span>Map</a>
+
+               {% if ob.cost_per_day <= '3000' %}
+                <a href="#" class="btn btn-danger btn-sm" role="button">Booked</a>
+                {% endif %}
+
+                <a href="{% url 'like' ob.id %}" class="btn btn-success btn-sm" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                <a href="{% url 'house_detail' ob.id %}" class="btn btn-primary btn-sm" role="button">Detail</a>
+                {% if ob.cost_per_day > '3000' %}
+                <a href="{% url 'order_create' %}" class="btn btn-success btn-sm" role="button">Book</a>
+                 {% endif %}
+
+                <!-- <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">tak</a> -->
+            </p>
+              </div>
+          </div>
+        </div>
+       </div>
+
+
+        {% endfor %}
+</div>
+
+    <nav>
+  <ul class="pager">
+    <li class="previous">{% if house.has_previous %}
+            <a href="?page={{ house.previous_page_number }}" style="background-color:#1aa3ff !important; color: white !important;"><span aria-hidden="true">&larr;</span> Previous</a>
+    {% endif %}
+    </li>
+      <li class="previous" style="color: black !important;">
+          Page {{ house.number }} of {{ house.paginator.num_pages }}.
+
+    </li>
+    <li class="next">{% if house.has_next %}
+            <a href="?page={{ house.next_page_number }}" style="background-color:#1aa3ff !important; color: white !important;">
+        Next <span aria-hidden="true">&rarr;</span></a>{% endif %}</li>
+  </ul>
+</nav>
+        <hr>
+</div>
+
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myMessageModal">
+  Aggrement
+</button>
+ -->
+<!-- Modal -->
+<div class="modal fade" id="myMessageModal" tabindex="-1" role="dialog" aria-labelledby="myMessageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myMessageLabel">User Agrrement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        by using our website your obey this rul and aggrement
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+{% endblock %}

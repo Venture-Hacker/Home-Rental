@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block search %}
+
+{% endblock %}
+{% block nav %}
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li><a href="{% url 'house_list' %}"><span class="glyphicon glyphicon-list"></span> House List</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-share"></span> Login</a></li>
+        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+      </ul>
+    </div>
+{% endblock %}
+{% block body %}
+<div class ='col-sm-5 col-sm-offset-3'>
+    <h1>{{ title }}</h1><hr>
+
+    <form method="POST" action="">{% csrf_token %}
+      {{form|crispy}}
+        <div class="pull-right">
+          {% if form.UserRegisterForm %}
+          <button type="button" class="btn btn-primary" 
+          data-toggle="modal" data-target="#myMessageModal">
+  Aggrement
+</button>
+{% endif %}
+            <input type="submit" class="btn btn-primary" value="{{ title }}"/>
+        </div>
+
+        <li><a href="/reset_password"><span class="glyphicon glyphicon-user"></span> Forgot Password?</a></li>
+
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    {% for message in messages %}
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      
+
+      <script>
+        $(document).ready(function() {
+            $('#myMessage').modal('show');
+        });
+      </script>
+      
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myMessageModal">
+  Aggrement
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="myMessageModal" tabindex="-1" role="dialog" aria-labelledby="myMessageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myMessageLabel">User Agrrement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        If you are tenant (customer ) you must fill the form properly ,after You register on the system. Regarding of payment option ,you will pay online the required amount of money of  the house that you choose  to rent  but in case if you want to leave the house before the deadline of your payment ,you won't get  all your money back ,50% or more will be conciderd. After rejestration has been done  and you want to rent house ,before reservation  you need to attach your legal information ( ID,passport ,driving license )and more evidence that proves  you are legally Innocent to the admin.
+If you are a private owner and you want to upload your house  you can  upload to the house and  we will approve your house by sending our agent to your house please insert or upload your own house  .
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Agree</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+
+
+{% endblock %}

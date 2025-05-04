@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+# added 
+{%  crispy form form.helper%}
+
+{% block title %} payment {% endblock %}
+
+{% block search_box %}
+
+{% endblock %}
+{% block nav %}
+        <li><a href="{% url 'newhouse' %}"><span class="glyphicon glyphicon-align-justify"></span> Newly Added House</a></li>
+        <li><a href="{% url 'popularhouse' %}"><span class="glyphicon glyphicon-star"></span> Popular House</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout</a></li>
+{% endblock %}
+
+
+{% block body %}
+    <!-- <a href="{% url 'home' %}">Home</a> -->
+<div style="position: absolute;
+left: 50%;
+top: 30%;
+transform: translate(-50%, -50%);
+border: 5px solid  #92a8d1;
+padding: 10px;">
+    <h3> Payment with yenepay</h3>
+    <div><hr style="height:2px;border-width:0;color:gray;background-color:gray"></div>
+    <form action="{% url 'payment_with_cart' %}" method="POST">
+        {% csrf_token %}
+        {% for x, y in obj.items %}
+            <input type="hidden" name="{{ x }}" value="{{ y }}">
+        {% endfor %}
+        {{house.cost_per_day}} 4500 INR
+        <input class="btn btn-primary" type="submit" value="Pay with yenepay">
+    </form>
+</div>
+{% endblock %}
